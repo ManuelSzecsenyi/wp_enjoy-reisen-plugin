@@ -2,20 +2,52 @@
 
 $the_query = new WP_Query( array(
     'post_type' => 'tour-item',
-    'meta_key'		=> 'ist_studienreise',
-	'meta_value'	=> true
-) )
+    'meta_query' => array(
+        'relation'		=> 'AND',
+        array(
+            'key'	 	=> 'ist_studienreise',
+            'value'	  	=> true,
+            'compare' 	=> '=',
+        ),
+        array(
+            'key'	  	=> 'from',
+            'value'	  	=> date("Ymd"),
+            'compare' 	=> '>=',
+        )
+    ),
+    'meta_key'			=> 'from',
+    'orderby'			=> 'meta_value',
+    'order'				=> 'ASC'
+) );
+
+setlocale(LC_ALL, "de-DE");
 
 ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
 
-    <!-- pagination here -->
+    <?php $current_month = ""; ?>
 
     <!-- the loop -->
     <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 
-        <?php $post_id = get_the_ID(); ?>
+        <?php
+
+        $post_id = get_the_ID();
+
+        $tour_from_as_string = get_field("from");
+        $tour_from_as_date = DateTime::createFromFormat("Ymd", $tour_from_as_string);
+
+        if($current_month != $tour_from_as_date->format("F Y")) {
+
+            $current_month = $tour_from_as_date->format("F Y");
+
+            echo "<h2 class='current-month'>".$current_month."</h2>";
+
+        }
+
+        ?>
+
 
         <div class="row">
             <div class="col-12 col-md-3">
@@ -24,7 +56,7 @@ $the_query = new WP_Query( array(
 
             <div class="col-12 col-md-7">
                 <a href="<?= get_the_permalink() ?>">
-                    <h2><?php the_title(); ?> <small><?= get_post_meta($post_id, "eltd_tours_price")[0] ?>,- </small> </h2>
+                    <h3><?php the_title(); ?> <small><?= get_post_meta($post_id, "eltd_tours_price")[0] ?>,- </small> </h3>
                     <p><?= get_the_excerpt(); ?></p>
                 </a>
             </div>
@@ -35,7 +67,6 @@ $the_query = new WP_Query( array(
             </div>
         </div>
 
-    <?php var_dump(get_meta_keys(get_the_ID())) ?>
 
 
     <?php endwhile; ?>

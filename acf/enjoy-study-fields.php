@@ -68,6 +68,40 @@ if( function_exists('acf_add_local_field_group') ):
                 'append' => '',
                 'maxlength' => '',
             ),
+            array(
+                'key' => 'field_624df52de9ead',
+                'label' => 'Von',
+                'name' => 'from',
+                'type' => 'date_picker',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'display_format' => 'd/m/Y',
+                'return_format' => 'Ymd',
+                'first_day' => 1,
+            ),
+            array(
+                'key' => 'field_624df551e9eae',
+                'label' => 'Bis',
+                'name' => 'to',
+                'type' => 'date_picker',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'display_format' => 'd/m/Y',
+                'return_format' => 'd/m/Y',
+                'first_day' => 1,
+            ),
         ),
         'location' => array(
             array(
@@ -90,5 +124,3 @@ if( function_exists('acf_add_local_field_group') ):
     ));
 
 endif;
-
-?>

@@ -19,9 +19,7 @@ if (!class_exists("EnjoyStudy_Plugin")) {
         public function __construct() {
             add_action('wp_enqueue_scripts', array($this, 'add_styles') );
 
-            if( class_exists('acf') ) {
-                $this->register_acf_fields();
-            }
+            $this->register_acf_fields();
 
         }
 
