@@ -99,7 +99,7 @@ if( function_exists('acf_add_local_field_group') ):
                     'id' => '',
                 ),
                 'display_format' => 'd/m/Y',
-                'return_format' => 'd/m/Y',
+                'return_format' => 'Ymd',
                 'first_day' => 1,
             ),
         ),
