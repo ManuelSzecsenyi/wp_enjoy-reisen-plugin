@@ -122,8 +122,17 @@ d        }
             height: 100%;
             border: 1px solid white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            color: white !important;
+        }
+
+        .enjoy-tile-inner h1,
+        .enjoy-tile-inner h2,
+        .enjoy-tile-inner h3,
+        .enjoy-tile-inner h4,
+        .enjoy-tile-inner h5, {
             color: white !important;
         }
 
