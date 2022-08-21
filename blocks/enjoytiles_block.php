@@ -37,12 +37,14 @@ function enjoy_define_tiles_block() {
                 'value' => '',
                 'heading' => esc_html__( 'Text Overlay', 'enjoy' ),
                 'param_name' => 'content',
+                "admin_label" => true,
             ),
             array(
                 'type' => 'vc_link',
                 'value' => '',
                 'heading' => esc_html__( 'Verlinkung', 'enjoy' ),
                 'param_name' => 'enjoy_tiles_link',
+                "admin_label" => true,
             ),
         )
       ) );
@@ -71,7 +73,7 @@ function render_enjoy_tiles( $atts, $content, $tag ) {
 
     ?>
 
-    <a href="<?= $enjoy_tiles_link ?>" class="enjoy-tile" style='background-image: url("<?= wp_get_attachment_image_url($enjoy_tiles_background_image) ?>")'>
+    <a href="<?= $enjoy_tiles_link ?>" class="enjoy-tile" style='background-image: url("<?= wp_get_attachment_image_url($enjoy_tiles_background_image, 'large') ?>")'>
 
         <?php if(!$enjoy_tiles_background_image): ?>
             <div class="enjoy-tile-inner">
@@ -86,6 +88,26 @@ function render_enjoy_tiles( $atts, $content, $tag ) {
 
     return ob_get_clean();
 
+}
+
+function your_thumbnail_sizes() {
+    global $_wp_additional_image_sizes;
+    $sizes = array();
+    $rSizes = array();
+    foreach (get_intermediate_image_sizes() as $s) {
+        $sizes[$s] = array(0, 0);
+        if (in_array($s, array('thumbnail', 'medium', 'medium_large', 'large'))) {
+            $sizes[$s][0] = get_option($s . '_size_w');
+            $sizes[$s][1] = get_option($s . '_size_h');
+        }else {
+            if (isset($_wp_additional_image_sizes) && isset($_wp_additional_image_sizes[$s]))
+                $sizes[$s] = array($_wp_additional_image_sizes[$s]['width'], $_wp_additional_image_sizes[$s]['height'],);
+        }
+    }
+    foreach ($sizes as $size => $atts) {
+        $rSizes[$size] = $size . ' ' . implode('x', $atts);
+    }
+    return $rSizes;
 }
 
 add_shortcode( 'your_gallery', 'render_enjoy_tiles_wrapper');
@@ -103,7 +125,7 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
         .enjoy-gallery-wrapper {
             display: flex;
             flex-wrap: wrap;
-d        }
+        }
 
         .enjoy-tile {
             width: calc((100% / 4) - 30px);
@@ -112,20 +134,20 @@ d        }
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            height: 30vh;
-            min-height: 400px;
+            height: 400px;
             padding: 10px;
         }
 
         .enjoy-tile-inner {
-            width: 100%;
-            height: 100%;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
             border: 1px solid white;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white !important;
+            padding: 10px;
         }
 
         .enjoy-tile-inner h1,
@@ -145,6 +167,7 @@ d        }
         @media only screen and (max-width: 778px){
             .enjoy-tile {
                 width: calc((100% / 2) - 30px);
+                height: 300px
             }
         }
 
