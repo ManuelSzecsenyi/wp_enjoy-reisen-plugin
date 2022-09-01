@@ -71,9 +71,10 @@ function render_enjoy_tiles( $atts, $content, $tag ) {
         'enjoy_tiles_link' => '',
     ), $atts));
 
+//    var_dump(vc_build_link($enjoy_tiles_link));
     ?>
 
-    <a href="<?= $enjoy_tiles_link ?>" class="enjoy-tile" style='background-image: url("<?= wp_get_attachment_image_url($enjoy_tiles_background_image, 'large') ?>")'>
+    <a <?php if($enjoy_tiles_link): ?>href="<?= vc_build_link($enjoy_tiles_link)['url'] ?>" <?php endif; ?> class="enjoy-tile" data-aos="fade-up" style='background-image: url("<?= wp_get_attachment_image_url($enjoy_tiles_background_image, 'full ') ?>")'>
 
         <?php if(!$enjoy_tiles_background_image): ?>
             <div class="enjoy-tile-inner">
@@ -88,26 +89,6 @@ function render_enjoy_tiles( $atts, $content, $tag ) {
 
     return ob_get_clean();
 
-}
-
-function your_thumbnail_sizes() {
-    global $_wp_additional_image_sizes;
-    $sizes = array();
-    $rSizes = array();
-    foreach (get_intermediate_image_sizes() as $s) {
-        $sizes[$s] = array(0, 0);
-        if (in_array($s, array('thumbnail', 'medium', 'medium_large', 'large'))) {
-            $sizes[$s][0] = get_option($s . '_size_w');
-            $sizes[$s][1] = get_option($s . '_size_h');
-        }else {
-            if (isset($_wp_additional_image_sizes) && isset($_wp_additional_image_sizes[$s]))
-                $sizes[$s] = array($_wp_additional_image_sizes[$s]['width'], $_wp_additional_image_sizes[$s]['height'],);
-        }
-    }
-    foreach ($sizes as $size => $atts) {
-        $rSizes[$size] = $size . ' ' . implode('x', $atts);
-    }
-    return $rSizes;
 }
 
 add_shortcode( 'your_gallery', 'render_enjoy_tiles_wrapper');
@@ -127,6 +108,10 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
             flex-wrap: wrap;
         }
 
+        a.enjoy-tile.aos-init.aos-animate:hover {
+            transform: scale(1.03);
+        }
+
         .enjoy-tile {
             width: calc((100% / 4) - 30px);
             margin: 5px;
@@ -136,7 +121,11 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
             background-position: center center;
             height: 400px;
             padding: 10px;
+            transition: transform 0.3s;
+            display: block;
         }
+
+
 
         .enjoy-tile-inner {
             width: calc(100% - 20px);
@@ -172,6 +161,13 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
         }
 
     </style>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
 
     <?php
 
