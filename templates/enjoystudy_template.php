@@ -69,7 +69,7 @@ $the_query = new WP_Query( array(
                 </div>
 
                 <div class="col-12 col-md-3 guide">
-                    <?= wp_get_attachment_image( get_field("tour_guide"), array(200, 200), false, array('class' => 'rounded-circle mx-auto d-block guide-photo')); ?>
+                    <?= wp_get_attachment_image( get_field("tour_guide"), array(200, 200), false, array('class' => 'mx-auto d-block guide-photo')); ?>
                     <h3 class="text-center guide-name"><?= get_field("name") ?></h3>
                 </div>
             </div>
