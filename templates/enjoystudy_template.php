@@ -39,7 +39,7 @@ $the_query = new WP_Query( array(
             $formatter = new IntlDateFormatter('de_DE', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
             $formatter->setPattern('MMMM yyyy');
 
-            if($current_month != $tour_from_as_date->format("F Y")) {
+            if($current_month != $formatter->format($tour_from_as_date) ) {
 
                 $current_month = $formatter->format($tour_from_as_date);
                 
