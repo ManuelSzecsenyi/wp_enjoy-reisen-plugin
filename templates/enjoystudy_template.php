@@ -17,7 +17,8 @@ $the_query = new WP_Query( array(
     ),
     'meta_key'			=> 'from',
     'orderby'			=> 'meta_value',
-    'order'				=> 'ASC'
+    'order'				=> 'ASC',
+	'posts_per_page'    => -1
 ) );
 
 ?>
