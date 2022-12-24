@@ -1,0 +1,28 @@
+.enjoy-tile-inner h3 {
+	color: white !important;
+	text-align: center;
+	margin: 0;
+	line-height: 1.2;
+	font-style: italic;
+	font-weight: 300;
+}
+
+.enjoy-tile-inner h3 strong {
+	font-size: 1.5em;
+	font-style: normal;
+}
+
+.enjoy-tile-inner p {
+	text-align: center;
+	line-height: 1.4;
+}
+
+.enjoy-tile-inner-button {
+	background: white;
+	color: black;
+	font-size: 1.2rem;
+	padding: 7px 15px;
+	border: 2px solid black;
+	font-weight: 400;
+	margin-top: 10px;
+}

@@ -8,7 +8,7 @@
  * Author URI:      marginleft.at
  * Text Domain:     enjoy-reisen
  * Domain Path:     /languages
- * Version:         1.2.0
+ * Version:         1.3.0
  *
  * @package         Enjoy_Studienreisen
  */
@@ -29,11 +29,13 @@ if (!class_exists("EnjoyStudy_Plugin")) {
             wp_register_style( 'enjoy-reisen-util', plugins_url('css/bootstrap-utilities.min.css', __FILE__) );
             wp_register_style( 'enjoy-reisen-fontawesome-duotone', plugins_url('css/duotone.min.css', __FILE__) );
             wp_register_style( 'enjoy-reisen-fontawesome-solid', plugins_url('css/solid.min.css', __FILE__) );
+            wp_register_style( 'enjoy-tiles', plugins_url('css/enjoy-tiles.css', __FILE__) );
 
             wp_enqueue_style( 'enjoy-reisen-grid' );
             wp_enqueue_style( 'enjoy-reisen-util' );
             wp_enqueue_style( 'enjoy-reisen-fontawesome-duotone' );
             wp_enqueue_style( 'enjoy-reisen-fontawesome-solid' );
+            wp_enqueue_style( 'enjoy-tiles' );
         }
 
         function register_acf_fields() {
@@ -51,18 +53,18 @@ if (!class_exists("EnjoyStudy_Block")) {
 
         //Initialize Component
         function __construct() {
-            add_action( 'init', array( $this, 'create_shortcode' ), 999 );            
+            add_action( 'init', array( $this, 'create_shortcode' ), 999 );
             add_shortcode( 'enjoystudy', array( $this, 'render_shortcode' ) );
-            
+
             // add_shortcode( 'enjoytiles', array( $this, 'render_enjoy_tiles' ) );
 
-        }        
+        }
 
         //Map Component
         public function create_shortcode() {
-        
+
             if (function_exists("vc_map") ) {
-                
+
                 vc_map( array(
                     "name" => __("Enjoy Reisen Studienreisen"),
                     "base" => "enjoystudy",
@@ -123,7 +125,7 @@ if (!class_exists("EnjoyStudy_Block")) {
                  ) );
 
             }
-            
+
 
         }
 
@@ -161,5 +163,5 @@ include 'blocks/enjoytiles_block.php';
  * https://kb.wpbakery.com/docs/inner-api/vc_map/
  * https://developer.wordpress.org/plugins/plugin-basics/best-practices/
  * https://www.sodawebmedia.com/blog/how-to-create-a-new-wpbakery-visual-composer-component/
- * 
+ *
  */

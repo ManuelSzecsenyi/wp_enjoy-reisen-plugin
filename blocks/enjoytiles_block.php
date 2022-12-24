@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'init', 'enjoy_define_tiles_block', 999 );      
+add_action( 'init', 'enjoy_define_tiles_block', 999 );
 
 function enjoy_define_tiles_block() {
 
@@ -79,6 +79,8 @@ function render_enjoy_tiles( $atts, $content, $tag ) {
         <?php if(!$enjoy_tiles_background_image): ?>
             <div class="enjoy-tile-inner">
                 <?= $content ?>
+
+				<div class="enjoy-tile-inner-button">Entdecken</div>
             </div>
         <?php endif; ?>
 
@@ -101,7 +103,7 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
     <div class="enjoy-gallery-wrapper">
         <?= do_shortcode($content) ?>
     </div>
-    
+
     <style>
         .enjoy-gallery-wrapper {
             display: flex;
@@ -119,13 +121,12 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            height: 400px;
+            height: auto;
+			min-height: 400px;
             padding: 10px;
             transition: transform 0.3s;
             display: block;
         }
-
-
 
         .enjoy-tile-inner {
             width: calc(100% - 20px);
@@ -156,9 +157,16 @@ function render_enjoy_tiles_wrapper( $atts, $content, $tag ) {
         @media only screen and (max-width: 778px){
             .enjoy-tile {
                 width: calc((100% / 2) - 30px);
-                height: 300px
+                /*height: 300px*/
+				min-height: 300px;
             }
         }
+
+		@media only screen and (max-width: 450px){
+			.enjoy-tile {
+				width: calc(100% - 30px);
+			}
+		}
 
     </style>
 

@@ -55,7 +55,7 @@ $the_query = new WP_Query( array(
             
 
 
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-12 col-md-4 tour-preview-image">
                     <?= get_the_post_thumbnail() ?>
                 </div>
@@ -69,7 +69,7 @@ $the_query = new WP_Query( array(
                 </div>
 
                 <div class="col-12 col-md-3 guide">
-                    <?= wp_get_attachment_image( get_field("tour_guide"), array(200, 200), false, array('class' => 'rounded-circle mx-auto d-block guide-photo')); ?>
+                    <?= wp_get_attachment_image( get_field("tour_guide"), array(150, 150), false, array('class' => 'rounded-circle mx-auto d-block guide-photo')); ?>
                     <h3 class="text-center guide-name"><?= get_field("name") ?></h3>
                 </div>
             </div>
