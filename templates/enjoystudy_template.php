@@ -17,7 +17,8 @@ $the_query = new WP_Query( array(
     ),
     'meta_key'			=> 'from',
     'orderby'			=> 'meta_value',
-    'order'				=> 'ASC'
+    'order'				=> 'ASC',
+	'posts_per_page'    => -1
 ) );
 
 ?>
@@ -39,7 +40,7 @@ $the_query = new WP_Query( array(
             $formatter = new IntlDateFormatter('de_DE', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
             $formatter->setPattern('MMMM yyyy');
 
-            if($current_month != $tour_from_as_date->format("F Y")) {
+            if($current_month != $formatter->format($tour_from_as_date) ) {
 
                 $current_month = $formatter->format($tour_from_as_date);
                 
@@ -69,7 +70,9 @@ $the_query = new WP_Query( array(
                 </div>
 
                 <div class="col-12 col-md-3 guide">
+
                     <?= wp_get_attachment_image( get_field("tour_guide"), array(150, 150), false, array('class' => 'rounded-circle mx-auto d-block guide-photo')); ?>
+
                     <h3 class="text-center guide-name"><?= get_field("name") ?></h3>
                 </div>
             </div>
@@ -82,7 +85,7 @@ $the_query = new WP_Query( array(
         <?php wp_reset_postdata(); ?>
 
     <?php else : ?>
-    <p><?php _e( 'Sorry, no posts dfdasdsdfa your criteria.' ); ?></p>
+    <p><?php _e( 'Sorry, no posts match your criteria.' ); ?></p>
     <?php endif; ?>
 
 </div>
